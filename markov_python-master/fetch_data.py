@@ -3,34 +3,41 @@ import urllib2
 from cc_markov import MarkovChain
 from random import randint
 
-books = ['http://www.gutenberg.org/files/2638/2638-h/2638-h.htm', 'http://www.gutenberg.org/files/2542/2542-h/2542-h.htm', 'http://www.gutenberg.org/files/11/11-h/11-h.htm', 'http://www.gutenberg.org/files/2701/2701-h/2701-h.htm', 'http://www.gutenberg.org/files/74/74-h/74-h.htm', 'http://www.gutenberg.org/files/76/76-h/76-h.htm' ]
-
-def get_book_data():
-	url = books[randint(0, len(books)-1)]
-	response = urllib2.urlopen(url)
+def get_book_data(book_url): 
+	response = urllib2.urlopen(book_url)
 	soup = BeautifulSoup(response, 'html.parser')
 	html_as_string = '' 
 	#print html.get_text()
 	paragraphs = soup.find_all('p')
 	for par in paragraphs:
 		html_as_string += par.get_text()
-	title = soup.title.get_text().split(',')[0].strip()
-	author = soup.title.get_text().split(',')[1].strip().replace('by', '')
-	author_initials =  '.'.join([x[0] for x in author.split(" ")])
+	soup_title = soup.title.get_text().split(',')
+	title = soup_title[0].strip()
+	author = soup_title[1].replace("By", "").replace("by", "").strip() if soup_title[1].strip().lower().startswith("by") else "Error author name"
+	#print author
+	author_initials =  '.'.join([x[0] for x in author.split(" ")]) if author.startswith("Error") == False else "Error author name"
 	passage = paragraphs[randint(0, len(paragraphs)-1)].get_text()
+	#print author
+	#print author_initials
 	#mc = MarkovChain()
 	#mc.add
-	# print html_as_string
+	#print author_initials
+	#print books
 	return { 'text': html_as_string,
 			 'title': title,
 			 'author': author,
 			 'author_initials': author_initials,
-			 'passage': passage	 }			 
-	
+			 'passage': passage	 }		 
+
+#print get_book_data()
+
+# 'http://www.gutenberg.org/files/11/11-h/11-h.htm', 'http://www.gutenberg.org/files/2701/2701-h/2701-h.htm', 'http://www.gutenberg.org/files/74/74-h/74-h.htm', http://www.gutenberg.org/files/76/76-h/76-h.htm'
 
 
+#print get_book_data('http://www.gutenberg.org/files/158/158-h/158-h.htm')
 
 
+#http://www.gutenberg.org/files/1184/1184-h/1184-h.htm
 
 
 """
