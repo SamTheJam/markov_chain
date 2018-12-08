@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 from random import randint
 import urllib2
-
+#from run import books_list
 
 def Get_book_data(book_url): 
 	response = urllib2.urlopen(book_url)
@@ -22,7 +22,13 @@ def Get_book_data(book_url):
 			 'author_initials': author_initials,
 			 'passage': passage	 }		 
 
+#data_fetch_test ref. run file comment to book_list variable
+def data_fetch_test():
+	for i in range(len(books_list)):
+		print Get_book_data(books_list[i])
 
+#data_fetch()
+		
 
 
 #
