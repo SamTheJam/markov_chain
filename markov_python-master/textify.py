@@ -1,5 +1,4 @@
 list_exclude_sign = ['"', "'", '""', ')', '(', ' " "', '-', '-" "', ' " ',' "', '" ', ' " "']
-import re
 
 def change_i(x):
 	if x == 'i':
@@ -7,12 +6,11 @@ def change_i(x):
 	else:
 		return x
 	
-def textify_markov(generated_text):
-	generated_text = [x for x in generated_text if x.encode('utf-8') not in list_exclude_sign]
+def Textify_markov(generated_text):
+	generated_text = [x for x in generated_text if x not in list_exclude_sign]
 	generated_text.append('...')
 	generated_text = [change_i(x) for x in generated_text]
 	string = ' '.join(generated_text)
-	
 	return string.capitalize()
 	
 	
