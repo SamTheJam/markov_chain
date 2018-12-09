@@ -6,7 +6,7 @@ def change_i(x):
 	else:
 		return x
 	
-def Textify_markov(generated_text):
+def textify_markov(generated_text):
 	generated_text = [x for x in generated_text if x not in list_exclude_sign]
 	generated_text.append('...')
 	generated_text = [change_i(x) for x in generated_text]

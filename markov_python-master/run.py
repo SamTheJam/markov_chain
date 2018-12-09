@@ -1,24 +1,30 @@
-from fetch_data import Get_book_data
+from fetch_data import get_book_data
 from cc_markov import MarkovChain
-from textify import Textify_markov
+from textify import textify_markov
 from time import sleep
 from random import randint
-from round import Game_run, status
+from round import game_run, status
 import sys
 
 #adding books from gutenberg.org -- ones that fit the format. Correct format is usually ones from the popular list. 
 #Format compatibility can easily be "tested" with the fetch_data function, by printing the return object. 	
 books_list = ['http://www.gutenberg.org/files/11/11-h/11-h.htm', 'http://www.gutenberg.org/files/2701/2701-h/2701-h.htm', 'http://www.gutenberg.org/files/1342/1342-h/1342-h.htm', 'http://www.gutenberg.org/files/76/76-h/76-h.htm', 'http://www.gutenberg.org/files/1080/1080-h/1080-h.htm', 'http://www.gutenberg.org/files/1497/1497-h/1497-h.htm', 'http://www.gutenberg.org/files/1322/1322-h/1322-h.htm', 'http://www.gutenberg.org/files/1184/1184-h/1184-h.htm']
 
+#Data fetching test
+def data_fetch_test():
+	for i in range(len(books_list)):
+		print get_book_data(books_list[i])
+
+#data_fetch_test()
 
 def program():
 	run = True	
 	while run:
 		book_url = books_list[randint(0, len(books_list)-1)]
 		print len(books_list)
-		book = Get_book_data(book_url)
+		book = get_book_data(book_url)
 		user = raw_input("Hi and welcome....please enter your name: " ).capitalize()
-		rules = 'You start off with 0 points. The goal of the game is to guess the correct book and/or author. For each guess that is incorrect, your score will be increased by one point. You will also add points everytime you request a hint. Good luck ' + user + "\n"
+		rules = 'You start off with 0 points. The goal of the game is to guess the correct book and/or author. For each guess that is incorrect, your score will be increased by one point. You will also add points everytime you request a hint. Good luck ' + user + "!\n"
 		sleep(1)
 		print "The rules are as follows:\n\n" + rules
 		sleep(1)
@@ -28,23 +34,22 @@ def program():
 		sleep(1)
 		mc = MarkovChain()
 		mc.add_string(book['text'])
-		print '"' + Textify_markov(mc.generate_text(15)) + '" \n'
-		#result = Game_run(book, 0) 
-		Game_run(book, user)
+		print '"' + textify_markov(mc.generate_text(15)) + '" \n'
+		#result = game_run(book, 0) 
+		game_run(book, user)
 		sleep(1)
 		option = raw_input('Want to run another round with a different book? Enter Y/N: ').upper()
 		while option == 'Y':
 			books_list.remove(book_url)
 			book_url = books_list[randint(0, len(books_list)-1)]
-			book = Get_book_data(book_url)
+			book = get_book_data(book_url)
 			mc = MarkovChain()				
 			mc.add_string(book['text'])
-			print '"' + Textify_markov(mc.generate_text(15)) + '"'
-			#result = Game_run(book)
-			Game_run(book,user)
+			print '"' + textify_markov(mc.generate_text(15)) + '"'
+			#result = game_run(book)
+			game_run(book,user)
 			option = raw_input('Want to run another round with different books? Enter Y/N: ').upper()
 		else:
-			print status(user)
 			run = False			
 		print len(books_list)
 	else:

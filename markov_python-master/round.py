@@ -6,7 +6,7 @@ def status(user, score):
 	return str(user) + "'s score is: " + str(score)	
 
 
-def Game_run(book_input, user, num_runs =0):
+def game_run(book_input, user, num_runs=0):
 	num_runs = num_runs
 	solution = str(book_input['title'] + " " + book_input['author'] + " " + book_input['author_initials']).lower()
 	option = raw_input('To guess press G, to get a hint press H, to quit press Q: ').upper()
@@ -21,7 +21,7 @@ def Game_run(book_input, user, num_runs =0):
 			print "Wrong..."
 			num_runs += 1
 			#print num_runs
-			Game_run(book_input,user, num_runs)		
+			game_run(book_input, user, num_runs)		
 	elif option == 'H':
 		num_runs += 1
 		print num_runs
@@ -31,17 +31,19 @@ def Game_run(book_input, user, num_runs =0):
 		guess = raw_input('Guess: ').strip().lower()
 		if guess in solution and len(guess) > 1:
 			print 'Correct, the book is ' + book_input['title'] + ' written by ' + book_input['author']
+			print status(user, num_runs)
 			#print num_runs
 		else:
 			print 'Wrong....'
 			num_runs += 1
-			Game_run(book_input, user, num_runs)			
+			game_run(book_input, user, num_runs)			
 	elif option == "Q":
-		print status(user, num_runs)
-		print "Quitting round...."	
+		print "Quitting round...."
+		sleep(1)
+		print status(user, num_runs)	
 		
 	else:
 		print "error...running again"
-		Game_run(book_input, user, num_runs)
+		game_run(book_input, user, num_runs)
 		
 #print solution 
