@@ -15,7 +15,7 @@ def data_fetch_test():
 	for i in range(len(books_list)):
 		print get_book_data(books_list[i])
 
-#data_fetch_test()
+data_fetch_test()
 
 def program():
 	run = True	
@@ -56,7 +56,7 @@ def program():
 		print "Ending game..."
 		sys.exit()
 			
-program()
+#program()
 
 
 
