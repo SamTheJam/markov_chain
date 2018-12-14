@@ -15,6 +15,8 @@ def data_fetch_test():
 	for i in range(len(books_list)):
 		print get_book_data(books_list[i])
 
+	
+
 data_fetch_test()
 
 def program():
@@ -58,8 +60,16 @@ def program():
 			
 #program()
 
+"""
+book_url = books_list[0]
+book = get_book_data(book_url)
+mc = MarkovChain()				
+mc.add_string(book['text'])
 
-
+markov_text = c.generate_text(15)
+print '"' + textify_markov(markov_text) + '"'
+print '"' + textify_markov(mc.generate_text(15)) + '"'
+"""
 
 
 """
