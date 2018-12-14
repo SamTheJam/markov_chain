@@ -4,6 +4,7 @@ from textify import textify_markov
 from time import sleep
 from random import randint
 from round import game_run, status
+from intro import intro
 import sys
 
 #adding books from gutenberg.org -- ones that fit the format. Correct format is usually ones from the popular list. 
@@ -14,26 +15,30 @@ books_list = ['http://www.gutenberg.org/files/11/11-h/11-h.htm', 'http://www.gut
 def data_fetch_test():
 	for i in range(len(books_list)):
 		print get_book_data(books_list[i])
-
+		
+		# optional textify_markov test
+		books = get_book_data(books_list[i])
+		mc = MarkovChain()
+		mc.add_string(book['text'])
+		print textify_markov(mc.generate_text(10))
 	
-
 data_fetch_test()
+
+"""
+# Testing my textify method here
+def textify_test():
+	print textify_markov(['i'])
+	
+textify_test()
+"""
 
 def program():
 	run = True	
 	while run:
 		book_url = books_list[randint(0, len(books_list)-1)]
-		print len(books_list)
+		print "Number of books left: " + len(books_list)
 		book = get_book_data(book_url)
-		user = raw_input("Hi and welcome....please enter your name: " ).capitalize()
-		rules = 'You start off with 0 points. The goal of the game is to guess the correct book and/or author. For each guess that is incorrect, your score will be increased by one point. You will also add points everytime you request a hint. Good luck ' + user + "!\n"
-		sleep(1)
-		print "The rules are as follows:\n\n" + rules
-		sleep(1)
-		print "Let's go " + user + "! \n"
-		sleep(1)
-		print "First genereated text, try to guess the author and/or the book \n"
-		sleep(1)
+		user = intro()
 		mc = MarkovChain()
 		mc.add_string(book['text'])
 		print '"' + textify_markov(mc.generate_text(15)) + '" \n'
@@ -53,12 +58,17 @@ def program():
 			option = raw_input('Want to run another round with different books? Enter Y/N: ').upper()
 		else:
 			run = False			
-		print len(books_list)
+		print "Number of books left: " + len(books_list)
 	else:
 		print "Ending game..."
 		sys.exit()
 			
 #program()
+
+
+
+
+
 
 """
 book_url = books_list[0]

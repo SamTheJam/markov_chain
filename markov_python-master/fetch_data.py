@@ -23,6 +23,8 @@ def get_book_data(book_url):
 			 'author_initials': author_initials,
 			 'passage': passage	 }		 
 
+
+
 #data_fetch_test ref. run file comment to book_list variable
 
 		

@@ -14,9 +14,5 @@ def textify_markov(generated_text):
 	return string.capitalize()
 	
 	
-# Testing my textify method here
-def textify_test():
-	print textify_markov(['i'])
-	
-textify_test()
+
 	
