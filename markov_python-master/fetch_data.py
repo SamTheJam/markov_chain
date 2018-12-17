@@ -17,7 +17,7 @@ def get_book_data(book_url):
 	author_initials =  '.'.join([x[0] for x in author.split(" ")]).encode('utf-8') if author.startswith("Error") == False else "Error author name"
 	passage = paragraphs[randint(0, len(paragraphs)-1)].get_text()
 
-	return { 'text': 'html_as_string',
+	return { 'text': html_as_string,
 			 'title': title,
 			 'author': author,
 			 'author_initials': author_initials,
